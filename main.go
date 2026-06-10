@@ -6,6 +6,8 @@ import (
 	"io/fs"
 	"net"
 	"net/http"
+	"net/http/httputil"
+	"net/url"
 	"os"
 
 	webview "github.com/webview/webview_go"
@@ -27,19 +29,28 @@ func main() {
 		return "Hello from Webview!"
 	})
 
-	w.Navigate(fmt.Sprintf("http://localhost:%d/index.html", port))
+	w.Navigate(fmt.Sprintf("http://localhost:%d/", port))
 	w.Run()
 }
 
 func createLocalServer() int {
-	subFS, err := fs.Sub(frontendFiles, "frontend")
-	if err != nil {
-		panic(err)
+	var handler http.Handler
+
+	DEBUG := os.Getenv("APP_DEBUG")
+
+	if DEBUG == "true" {
+		viteURL, _ := url.Parse("http://localhost:5173")
+		handler = httputil.NewSingleHostReverseProxy(viteURL)
+	} else {
+		subFS, err := fs.Sub(frontendFiles, "frontend/dist")
+		if err != nil {
+			panic(err)
+		}
+		handler = http.FileServer(http.FS(subFS))
 	}
 
-	http.Handle("/", http.FileServer(http.FS(subFS)))
+	http.Handle("/", handler)
 
-	// get a free port
 	ln, err := net.Listen("tcp", ":0")
 	if err != nil {
 		panic(err)
