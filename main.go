@@ -24,7 +24,7 @@ func main() {
 	defer w.Destroy()
 
 	w.SetTitle("Tasks")
-	w.SetSize(1280, 720, 0)
+	w.SetSize(800, 600, webview.HintMin)
 
 	/**
 	 * Expose all the controller functinos into the WebView.
