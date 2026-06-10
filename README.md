@@ -71,7 +71,7 @@ make build
 cd frontend && npm run build
  
 # Step 2 — compile the Go binary (from project root)
-cd .. && go build -o .build/tasks.exe .
+cd .. && go build -ldflags="-s -w -H windowsgui" -o .build/tasks.exe .
 ```
  
 This produces a single `tasks` executable (or `tasks.exe` on Windows) with everything bundled inside.

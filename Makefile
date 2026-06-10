@@ -5,4 +5,4 @@ dev:
 
 build:
 	cd frontend && npm run build
-	go build -o .build/tasks.exe .
+	go build -ldflags="-s -w -H windowsgui" -o .build/tasks.exe .
