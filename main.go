@@ -10,6 +10,7 @@ import (
 	"net/url"
 	"os"
 
+	"github.com/diogocorigo/tasks/backend/controllers"
 	webview "github.com/webview/webview_go"
 )
 
@@ -25,6 +26,13 @@ func main() {
 	w.SetTitle("Tasks")
 	w.SetSize(1280, 720, 0)
 
+	/**
+	 * Expose all the controller functinos into the WebView.
+	 * This is the only way to call them from the frontend.
+	 */
+	w.Bind("getTasks", controllers.GetTasks)
+	w.Bind("createTask", controllers.CreateTask)
+
 	w.Bind("hello", func() string {
 		return "Hello from Webview!"
 	})
@@ -33,6 +41,12 @@ func main() {
 	w.Run()
 }
 
+/**
+ * Create a local HTTP server to serve the frontend files.
+ * If the `APP_DEBUG` environment variable is set to `true`, the server will
+ * proxy requests to Vite's dev server. Otherwise, it will serve the embedded
+ * frontend files.
+ */
 func createLocalServer() int {
 	var handler http.Handler
 
