@@ -6,8 +6,8 @@ Tasks is a simple task manager written in Go and Webview.
  
 Make sure you have the following installed:
  
-- [Go](https://go.dev/dl/) 1.21+
-- [Node.js](https://nodejs.org/) 18+
+- [Go](https://go.dev/dl/) 1.26+
+- [Node.js](https://nodejs.org/) 24+
 - A C/C++ compiler (required by WebView)
     - **Windows:** [MSYS2](https://www.msys2.org/) with `mingw-w64-x86_64-gcc`
     - **macOS:** Xcode Command Line Tools (`xcode-select --install`)
