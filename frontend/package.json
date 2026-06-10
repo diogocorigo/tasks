@@ -12,8 +12,11 @@
     "dev:app": "concurrently --kill-others --prefix-colors \"bgBlue,bgGreen\" --names \"VITE,GO\" \"npm run dev\" \"npm run dev:go\""
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.3.0",
+    "lucide-react": "^1.17.0",
     "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react-dom": "^19.2.6",
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
